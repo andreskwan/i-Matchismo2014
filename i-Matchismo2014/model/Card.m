@@ -12,10 +12,8 @@
 
 
 /**
-    Compare each card of otherCards array whit this instance of card,
-    to identify how well their contents attribute match according to
-    the rules of the game
-    @param card to be matched against
+    Compare each card "contents" value in the otherCards array whit this instance of card "contents" value,
+    @param Array of cards to be matched against the instace of self card
     @returns 0 if cards don't match or + 1 for each card matched
  */
 -(int)match:(NSArray *)otherCards

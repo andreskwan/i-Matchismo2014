@@ -8,60 +8,66 @@
 
 #import "CardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-@property (nonatomic) int flipCount;
-@property (strong, nonatomic) Deck * deck;
-
+@property (strong, nonatomic) CardMatchingGame * game;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @end
 
 @implementation CardGameViewController
-
-- (Deck *)deck
+-(CardMatchingGame *)game
 {
-    if (!_deck) {
-        _deck = [[PlayingCardDeck alloc]init];
+    if(!_game)
+    {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                       deck:[self createDeck]];
     }
-    return _deck;
+    return _game;
 }
-
-- (void)viewDidLoad
+-(Deck *)createDeck
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)setFlipCount:(int)flipCount
-{
-    _flipCount = flipCount;
-    self.flipsLabel.text =
-    [NSString stringWithFormat:@"Flips: %d Deck: %d", self.flipCount, [self.deck.cards count ]];
+    return [[PlayingCardDeck alloc] init];
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    if ([self.deck.cards count])
-    {
-        if ([sender.currentTitle length])
-        {
-            [sender setBackgroundImage:[UIImage imageNamed:@"cardback"]
-                              forState:UIControlStateNormal];
-            [sender setTitle:@"" forState:UIControlStateNormal];
-        }else{
-            [sender setBackgroundImage:[UIImage imageNamed:@"cardfront"]
-                              forState:UIControlStateNormal];
-            [sender setTitle:[self.deck drawRandomCard].contents forState:UIControlStateNormal];
-            
-        }
-        self.flipCount++;
-    }
+    /**
+     with sender and IBOutletCollection I could obtain the 
+     card.
+     obtain the index of the button in the array of buttons
+     */
+    [self.game chooseCardAtIndex:[self.cardButtons indexOfObject:sender]];
+    [self updateUI];
 }
 
+-(void)updateUI
+{
+    for (UIButton * cardButton in self.cardButtons) {
+        //we need the index of the cardButton
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        //obtain the PlayingCard related with the cardButton
+        Card * card = [self.game cardAtIndex:cardButtonIndex];
+        [cardButton setTitle:[self titleForCard:card]
+                    forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card]
+                              forState:UIControlStateNormal];
+        cardButton.enabled = !card.isMatched;
+    }
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
+}
 
+-(NSString *)titleForCard:(Card *)card
+{
+    return (card.isChosen)? card.contents : @"";
+}
+-(UIImage *)backgroundImageForCard:(Card *)card
+{
+    return [UIImage imageNamed:(card.isChosen? @"cardfront" : @"cardback" )];
+}
+- (IBAction)newGameButton {
+    self.game = nil;
+    [self game];
+    [self updateUI];
+}
 @end
