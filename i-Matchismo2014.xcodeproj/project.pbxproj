@@ -26,6 +26,7 @@
 		EA7A38DB19B61AE3004AFF8F /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7A38DA19B61AE3004AFF8F /* Deck.m */; };
 		EA7A38DE19B61B03004AFF8F /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7A38DD19B61B03004AFF8F /* PlayingCardDeck.m */; };
 		EA94990E19B7728900BDE608 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = EA94990D19B7728900BDE608 /* CardMatchingGame.m */; };
+		EAF386DF19FD3C4200DE0283 /* PlayingCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF386DE19FD3C4200DE0283 /* PlayingCardGameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,8 @@
 		EA7A38DD19B61B03004AFF8F /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = model/PlayingCardDeck.m; sourceTree = "<group>"; };
 		EA94990C19B7728900BDE608 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = model/CardMatchingGame.h; sourceTree = "<group>"; };
 		EA94990D19B7728900BDE608 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = model/CardMatchingGame.m; sourceTree = "<group>"; };
+		EAF386DD19FD3C4200DE0283 /* PlayingCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardGameViewController.h; sourceTree = "<group>"; };
+		EAF386DE19FD3C4200DE0283 /* PlayingCardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardGameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				EA3F52E219B5306F002C02C7 /* model */,
 				EA2B826C19B4DF5F0046C469 /* CardGameViewController.h */,
 				EA2B826D19B4DF5F0046C469 /* CardGameViewController.m */,
+				EAF386DD19FD3C4200DE0283 /* PlayingCardGameViewController.h */,
+				EAF386DE19FD3C4200DE0283 /* PlayingCardGameViewController.m */,
 				EA2B826F19B4DF5F0046C469 /* Images.xcassets */,
 				EA2B825E19B4DF5F0046C469 /* Supporting Files */,
 			);
@@ -291,6 +296,7 @@
 				EA7A38DE19B61B03004AFF8F /* PlayingCardDeck.m in Sources */,
 				EA7A38DB19B61AE3004AFF8F /* Deck.m in Sources */,
 				EA3F52E119B53060002C02C7 /* Card.m in Sources */,
+				EAF386DF19FD3C4200DE0283 /* PlayingCardGameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +424,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "i-Matchismo2014/i-Matchismo2014-Prefix.pch";
 				INFOPLIST_FILE = "i-Matchismo2014/i-Matchismo2014-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -431,6 +438,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "i-Matchismo2014/i-Matchismo2014-Prefix.pch";
 				INFOPLIST_FILE = "i-Matchismo2014/i-Matchismo2014-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
