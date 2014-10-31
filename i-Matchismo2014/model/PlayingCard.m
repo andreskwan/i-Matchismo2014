@@ -8,10 +8,36 @@
 
 #import "PlayingCard.h"
 
+@interface PlayingCard()
+
+
+@end
+
 /**
  This is the specific card for the matching game
  */
 @implementation PlayingCard
+
+//designated initializer
+- (instancetype) initWithRank:(NSUInteger)rank
+                         suit:(NSString *)suit
+                        color:(UIColor *)color
+{
+    self = [super init];
+    if (self) {
+        _rank = rank;
+        _suit = suit;
+        _color = color;
+    }
+    return self;
+}
+/**
+ Function description: test if this playingCard match with
+ one another card selected by rank or suit, never both
+ 
+ @param array of playingCards that holds just one card
+ @returns int value for score 4 if equal rank, 1 if equal suit, not other cases.
+ */
 
 -(int)match:(NSArray *)otherCards
 {

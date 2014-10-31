@@ -23,6 +23,15 @@
 
 - (void)addCard:(Card *)card atTop:(BOOL)atTop;
 - (void)addCard:(Card *)card;
+
+//this methods for me are the same
+//this method also deal the card
 - (Card *)drawRandomCard;
+//- (void)shuffleDeck;
+//
+//- (NSUInteger *)numberOfCardsInDeck;
+//- (Card *)showNextCard;
+//- (Card *)dealNextCard;
+
 
 @end

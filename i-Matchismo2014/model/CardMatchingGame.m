@@ -9,8 +9,8 @@
 #import "CardMatchingGame.h"
 
 static const int  MISTATCH_PENALTY = 2;
-static const int  MATCH_BONUS = 4;
-static const int  COST_TO_CHOOSE = 1;
+static const int  MATCH_BONUS      = 4;
+static const int  COST_TO_CHOOSE   = 1;
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;

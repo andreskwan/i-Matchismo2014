@@ -10,6 +10,13 @@
 
 
 @interface PlayingCard : Card
+
+- (instancetype) initWithRank:(NSUInteger)rank
+                         suit:(NSString *)suit
+                        color:(UIColor *)color;
+
+
+@property (nonatomic, strong)UIColor * color;
 /**
  unicode chars for card's suits
  */
@@ -18,13 +25,12 @@
  number between 0 and 13
  */
 @property (nonatomic) NSUInteger rank;
-
++ (NSArray *) validRanks;
 
 /**
  Let people know what are the valid values of suits
 */
 + (NSArray *) validSuits;
-
 
 /**
  let the API user know how many
