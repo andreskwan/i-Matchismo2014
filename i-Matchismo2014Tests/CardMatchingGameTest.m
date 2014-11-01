@@ -118,6 +118,7 @@
     XCTAssertFalse(card1.chosen, @"This should be false or NO");
     //card4 is chosen, ready to match to another one
     XCTAssertTrue(card4.chosen, @"This should be false or NO");
+    
     XCTAssertFalse(card1.matched, @"This should be false or NO");
     XCTAssertFalse(card4.matched, @"This should be false or NO");
     
@@ -159,6 +160,7 @@
 
     XCTAssertTrue(card1.chosen, @"This should be true");
     XCTAssertTrue(card2.chosen, @"This should be true");
+    
     XCTAssertTrue(card1.matched, @"This should be true");
     XCTAssertTrue(card2.matched, @"This should be true");
 
@@ -201,6 +203,7 @@
     
     XCTAssertTrue(card1.chosen, @"This should be true");
     XCTAssertTrue(card4.chosen, @"This should be true");
+    
     XCTAssertTrue(card1.matched, @"This should be true");
     XCTAssertTrue(card4.matched, @"This should be true");
     
@@ -209,6 +212,51 @@
     //2 for match + 4 for bonus
     XCTAssertEqual(self.cardMG.score, 6, @"The score should be 0");
     
+}
+
+- (void)testDetermineMatchCardsInThreeCardsGameNoMatch
+{
+    //A heart
+    PlayingCard * card1  = [[PlayingCard alloc]initWithRank:1
+                                                       suit:self.validSuits[0]
+                                                      color:[UIColor blackColor]];
+    //A diamonds
+    PlayingCard * card2  = [[PlayingCard alloc]initWithRank:2
+                                                       suit:self.validSuits[1]
+                                                      color:[UIColor blackColor]];
+    //A spades
+    PlayingCard * card3  = [[PlayingCard alloc]initWithRank:3
+                                                       suit:self.validSuits[2]
+                                                      color:[UIColor blackColor]];
+    //K clubs
+    PlayingCard * card4  = [[PlayingCard alloc]initWithRank:13
+                                                       suit:self.validSuits[3]
+                                                      color:[UIColor blackColor]];
+    card1.chosen = YES;
+    card2.chosen = YES;
+    card3.chosen = NO;
+    //this is the cardAtIndex
+    card4.chosen = YES;
+    
+    self.cardMG.threeCardsGame = YES;
+    
+    [self.cardsChoosen addObjectsFromArray:@[card1, card2, card4]];
+
+    [self.cardMG determineMatch:self.cardsChoosen
+                    cardsInGame:self.cardMG.threeCardsGame];
+    
+    //card1 no longer chosen
+    XCTAssertFalse(card1.chosen, @"This should be false or NO");
+    XCTAssertFalse(card2.chosen, @"This should be false or NO");
+    //card4 is chosen, ready to match to another one
+    XCTAssertTrue(card4.chosen, @"This should be false or NO");
+    
+    XCTAssertFalse(card1.matched, @"This should be false");
+    XCTAssertFalse(card2.matched, @"This should be false");
+    XCTAssertFalse(card4.matched, @"This should be false");
+    
+    //pay the cost of choose a card
+    XCTAssertEqual(self.cardMG.score, -4, @"The score should be 0");
 }
 
 @end
