@@ -10,11 +10,16 @@
 #import "PlayingCardDeck.h"
 
 @interface CardMatchingGame : NSObject
+
+/**
+ cardsInGame
+ */
+@property (nonatomic, strong) NSMutableArray * cards;
 /**
  Score could be negative
  */
 @property (nonatomic, readonly) NSInteger score;
-
+@property (nonatomic,getter = isThreeCardsGame) BOOL threeCardsGame;
 /**
  Designated initializer
  */
@@ -23,5 +28,6 @@
 
 -(void)chooseCardAtIndex:(NSUInteger)index;
 -(Card *)cardAtIndex:(NSUInteger)index;
-
+-(void)determineMatch:(NSMutableArray *)cardsChoosen
+          cardsInGame:(BOOL)isThreeCardGame;
 @end

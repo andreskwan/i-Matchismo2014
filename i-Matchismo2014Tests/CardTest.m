@@ -15,7 +15,9 @@
 @property (nonatomic,strong)Card *card;
 @property (nonatomic,strong)Card *card1;
 @property (nonatomic,strong)Card *card2;
+@property (nonatomic,strong)Card *card3;
 @property (nonatomic,strong)NSArray *otherCards;
+@property (nonatomic,strong)NSArray *otherCards1;
 @end
 
 @implementation CardTest
@@ -26,13 +28,21 @@
     self.card = [[Card alloc]init];
     self.card.contents = @"Card of love";
     self.card.chosen   = YES;
+    
     self.card1 = [[Card alloc]init];
     self.card1.contents = @"Card of love";
     self.card1.chosen   = YES;
+    
     self.card2 = [[Card alloc]init];
     self.card2.contents = @"Card of goals";
     self.card2.chosen   = YES;
-    self.otherCards = @[self.card1,self.card2];
+    
+    self.card3 = [[Card alloc]init];
+    
+    self.otherCards  = @[self.card1, self.card2];
+    self.otherCards1 = @[self.card2];
+    
+    
     
 }
 
@@ -50,6 +60,12 @@
     XCTAssertEqualObjects([self.card class], [Card class], @"Class should be Card");
 }
 
+- (void)testInit
+{
+    NSLog(@"--------%@",[self.card3 description]);
+    XCTAssertNotNil(self.card, @"Should be instantiate or not nil");
+}
+
 /**
  Function description: test if the card.contents is equal to any other card.contents in the othersCards array, in this case one card has the same contents
  
@@ -62,6 +78,10 @@
     XCTAssertEqual([self.card match:self.otherCards],1,@"Score should be 1");
 }
 
+- (void)testMatchCardNoEqual
+{
+    XCTAssertNotEqual([self.card match:self.otherCards1],1,@"Score should be 1");
+}
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{

@@ -21,6 +21,7 @@
                 PlayingCard *card = [[PlayingCard alloc]init];
                 card.suit = suit;
                 card.rank = rank;
+                card.color = [UIColor blackColor];
                 [self addCard:card];
             }
         }

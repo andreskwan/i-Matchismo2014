@@ -87,12 +87,12 @@
 
 - (void)testMatchRank
 {
-    XCTAssertEqual([self.playingCard match:self.otherCards], 4, @"Ranks should be equal");
+    XCTAssertEqual([self.playingCard match:self.otherCards], 23, @"Ranks should be equal");
 }
 
 - (void)testMatchSuit
 {
-    XCTAssertEqual([self.playingCard match:self.otherCards1], 1, @"Suits should be equal");
+    XCTAssertEqual([self.playingCard match:self.otherCards1], 2, @"Suits should be equal");
 }
 - (void)testValidRanks
 {
