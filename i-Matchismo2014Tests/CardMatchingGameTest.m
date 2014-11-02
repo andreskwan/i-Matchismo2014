@@ -27,7 +27,8 @@
 
 @implementation CardMatchingGameTest
 
-- (void)setUp {
+- (void)setUp
+{
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
     self.count  = 8;
@@ -38,7 +39,6 @@
     self.cardsChoosen = [[NSMutableArray alloc]init];
     self.validSuits   = @[@"♥",@"♦",@"♠",@"♣"];
 }
-
 - (void)tearDown
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
@@ -49,13 +49,12 @@
     self.cardsChoosen = nil;
     self.validSuits = nil;
 }
-
 - (void)testInitWithCardCountDeck
 {
     XCTAssertNotNil(self.cardMG, @"Should not be nil");
     XCTAssertEqual([self.cardMG.cards count], self.count, @"Deck size of playing cars is wrong" );
 }
-
+//lazy instantiation
 - (void)testCardsLazyInstantiation
 {
     NSLog(@"%@",@"--------------------------------------------");
@@ -68,22 +67,19 @@
     NSLog(@"%@",[[self.cardMG.cards class] description]);
     XCTAssertEqualObjects([self.cardMG.cards class], [[NSMutableArray new]class], @"Array of cards should be NSMutableArray");
 }
-
-- (void)testPerformanceExample {
+- (void)testPerformanceExample
+{
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
 }
-
 - (void)testLazyInstantiationTwoCardsGame
 {
     NSLog(@"%@",@"--------------------------------------------");
 //    XCTAssertTrue(self.isTwoCardsGame, @"Default value should be True");
 }
-
-
-
+//two cards
 - (void)testDetermineMatchCardsInTwoCardsGameNoMatch
 {
     //A heart
@@ -113,7 +109,7 @@
     //after run this method
     //the cards in the array must change
     [self.cardMG determineMatch:self.cardsChoosen
-                    cardsInGame:self.cardMG.threeCardsGame];
+                    gameSize:self.cardMG.cardGameSize];
     //card1 no longer chosen
     XCTAssertFalse(card1.chosen, @"This should be false or NO");
     //card4 is chosen, ready to match to another one
@@ -126,7 +122,6 @@
     XCTAssertEqual(self.cardMG.score, -2, @"The score should be 0");
     
 }
-
 - (void)testDetermineMatchCardsInTwoCardsGameMatchRank
 {
     //A heart
@@ -156,7 +151,7 @@
     //after run this method
     //the cards in the array must change
     [self.cardMG determineMatch:self.cardsChoosen
-                    cardsInGame:self.cardMG.threeCardsGame];
+                    gameSize:self.cardMG.cardGameSize];
 
     XCTAssertTrue(card1.chosen, @"This should be true");
     XCTAssertTrue(card2.chosen, @"This should be true");
@@ -199,7 +194,7 @@
     //after run this method
     //the cards in the array must change
     [self.cardMG determineMatch:self.cardsChoosen
-                    cardsInGame:self.cardMG.threeCardsGame];
+                    gameSize:3];
     
     XCTAssertTrue(card1.chosen, @"This should be true");
     XCTAssertTrue(card4.chosen, @"This should be true");
@@ -213,7 +208,7 @@
     XCTAssertEqual(self.cardMG.score, 6, @"The score should be 0");
     
 }
-
+//three cards or more
 - (void)testDetermineMatchCardsInThreeCardsGameNoMatch
 {
     //A heart
@@ -243,20 +238,20 @@
     [self.cardsChoosen addObjectsFromArray:@[card1, card2, card4]];
 
     [self.cardMG determineMatch:self.cardsChoosen
-                    cardsInGame:self.cardMG.threeCardsGame];
+                    gameSize:self.cardMG.cardGameSize];
     
     //card1 no longer chosen
     XCTAssertFalse(card1.chosen, @"This should be false or NO");
     XCTAssertFalse(card2.chosen, @"This should be false or NO");
     //card4 is chosen, ready to match to another one
-    XCTAssertTrue(card4.chosen, @"This should be false or NO");
+    XCTAssertTrue(card4.chosen, @"This should be True");
     
     XCTAssertFalse(card1.matched, @"This should be false");
     XCTAssertFalse(card2.matched, @"This should be false");
     XCTAssertFalse(card4.matched, @"This should be false");
     
     //pay the cost of choose a card
-    XCTAssertEqual(self.cardMG.score, -4, @"The score should be 0");
+    XCTAssertEqual(self.cardMG.score, -2, @"The score should be 0");
 }
 
 @end

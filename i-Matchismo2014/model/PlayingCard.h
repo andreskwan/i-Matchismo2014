@@ -36,4 +36,6 @@
  let the API user know how many
  */
 + (NSUInteger) maxRank;
+
++ (BOOL)isArrayOfPlayngCards:(NSArray *)arrayOfObjs;
 @end

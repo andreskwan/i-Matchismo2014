@@ -8,6 +8,7 @@
 
 #import "CardMatchingGame.h"
 
+static const int  DEFAULT_GAME_SIZE   = 2;
 static const int  MISTATCH_PENALTY = 2;
 static const int  MATCH_BONUS      = 4;
 static const int  COST_TO_CHOOSE   = 2;
@@ -43,6 +44,8 @@ static const int  COST_TO_CHOOSE   = 2;
         //extract “count” numbers of cards in game from “deck”
         //validate consistency of the value of the params
         //I call this, validate consistency of the parameters to each other.
+        //default is a card game of size 2
+        _cardGameSize = DEFAULT_GAME_SIZE;
         if(count < [deck.cards count])
         {
             for(int i =0; i<count; i++)
@@ -70,10 +73,9 @@ static const int  COST_TO_CHOOSE   = 2;
 //v3 35min
 -(void)chooseCardAtIndex:(NSUInteger)index
 {
-    //what card the user pick up
     Card * cardSelected = [self cardAtIndex:index];
-    //identify if it match against the other card(two card matching game)
     NSMutableArray * cardsChoosen = [[NSMutableArray alloc]init];
+    [cardsChoosen insertObject:cardSelected atIndex:0];
     
     if(!cardSelected.isMatched){
         if(cardSelected.isChosen){
@@ -81,12 +83,11 @@ static const int  COST_TO_CHOOSE   = 2;
             //flip the card unchosen if chosen twice
             cardSelected.chosen = NO;
         }else{  //match a new card chosen(not set yet) against the another chosen & not matched card
-            //if you flip the card, you have to pay for that
+            //mark card as chosen
             cardSelected.chosen = YES;
+            //if you flip the card, you have to pay for that
             //pay just for select
             self.score -= COST_TO_CHOOSE;
-            //mark card as chosen
-            [cardsChoosen insertObject:cardSelected atIndex:0];
             //set an array of all cards that are
             //chosen and not matched
             //last card is the selected one
@@ -97,67 +98,42 @@ static const int  COST_TO_CHOOSE   = 2;
                     [cardsChoosen insertObject:otherCard atIndex:0];
                 }
             }
-            [self determineMatch:cardsChoosen
-                     cardsInGame:self.isThreeCardsGame];
-            
+            //[self determineMatch:cardsChoosen
+            //         cardsInGame:self.isThreeCardsGame];
+            [self determineMatch:cardsChoosen gameSize:4];
         }
     }
 }
-
 - (void)determineMatch:(NSMutableArray *)cardsChoosen
-           cardsInGame:(BOOL)isThreeCardGame
+              gameSize:(NSInteger)cardGameSize
 {
-    //1 extract one card from the array
     Card * cardSelected = [cardsChoosen lastObject];
     [cardsChoosen removeObject:cardSelected];
-    
-    if (!isThreeCardGame) {
-        //this way allows me to compare against the array of cards selected
-        //should be a different if more than two card comparison
-        //Zero if not match at all
-        int matchScore = [cardSelected match:cardsChoosen];
-        if(matchScore)
+    int matchScore = 0;
+    matchScore = [cardSelected match:cardsChoosen];
+    if(matchScore)
+    {
+        if ([cardsChoosen count] == (cardGameSize -1))
         {
             //if match then set a score
-            self.score += matchScore + MATCH_BONUS;
+            self.score += matchScore + (MATCH_BONUS * (cardGameSize - 1));
             //mark cards as matched
             cardSelected.matched = YES;
             for (Card *card in cardsChoosen) {
                 card.matched = YES;
-            };
-        }else{
+            }
+        }
+    }else{//relese cards in array & penalty
             //if not match set a penalty
             self.score -= MISTATCH_PENALTY;
             //flip it over or release this selection.
-//            cardSelected.chosen = NO;
+            //            cardSelected.chosen = NO;
             for (Card *card in cardsChoosen) {
                 card.chosen = NO;
             };
         }
-        //found the match, no more iteration if just two card matching game
-    }else{
-        
     }
-}
 @end
 
 
-////this way allows me to compare against the array of cards selected
-////should be a different if more than two card comparison
-////Zero if not match at all
-//int matchScore = [otherCard match:@[cardSelected]];
-//if(matchScore)
-//{
-//    //if match then set a score
-//    self.score += matchScore + MATCH_BONUS;
-//    //mark cards as matched
-//    otherCard.matched = YES;
-//    cardSelected.matched = YES;
-//}else{
-//    //if not match set a penalty
-//    self.score -= MISTATCH_PENALTY;
-//    //flip it over or release this selection.
-//    otherCard.chosen = NO;
-//}
-////found the match, no more iteration if just two card matching game
-//break;
+

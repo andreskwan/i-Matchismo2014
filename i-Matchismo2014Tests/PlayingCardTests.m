@@ -73,7 +73,7 @@
 }
 /**
  Function description: Test designated initializer
- 
+
  @param none
  @returns none
  */
@@ -107,6 +107,19 @@
     XCTAssertTrue([[PlayingCard validSuits] isEqualToArray:self.validSuits], @"Valid Ranks should be equal");
 }
 
+- (void)testIsArrayOfPlayingCardsTrue
+{
+    //pass a valid array of cards
+    self.otherCards = @[self.playingCard, self.playingCard1, self.playingCard2];
+    XCTAssertTrue([PlayingCard isArrayOfPlayngCards:self.otherCards],@"Should be an array of only playingCards");
+}
+
+- (void)testIsArrayOfPlayingCardsFalse
+{
+    //pass a invalid
+    self.otherCards = @[self.playingCard, self.playingCard1, @"this is not a playingCard"];
+    XCTAssertFalse([PlayingCard isArrayOfPlayngCards:self.otherCards],@"Should not be an array of only playingCards");
+}
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

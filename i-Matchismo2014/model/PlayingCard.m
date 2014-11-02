@@ -8,8 +8,10 @@
 
 #import "PlayingCard.h"
 
-@interface PlayingCard()
+static const int  SUIT_MATCH_POINTS = 2;
+static const int  RANK_MATCH_POINTS = 23;
 
+@interface PlayingCard()
 
 @end
 
@@ -42,16 +44,35 @@
 -(int)match:(NSArray *)otherCards
 {
     int score = 0;
-    if ([otherCards count] == 1) {
-        PlayingCard * otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
-            score = 23;
-        }else if ( [otherCard.suit isEqualToString:self.suit]){
-            score = 2;
+    //1 validate that the othersCards bring valid Playing cards
+    //
+    if ([PlayingCard isArrayOfPlayngCards:otherCards]) {
+        for (PlayingCard * otherCard in otherCards) {
+            if (otherCard.rank == self.rank) {
+                //use constant - so I
+                score = RANK_MATCH_POINTS;
+            }else if ( [otherCard.suit isEqualToString:self.suit]){
+                score = SUIT_MATCH_POINTS;
+            }
         }
     }
     return score;
 }
+
++ (BOOL)isArrayOfPlayngCards:(NSArray *)arrayOfObjs
+{
+    BOOL cardsValid = NO;
+    for (id otherObj in arrayOfObjs) {
+        if ([otherObj isKindOfClass:[PlayingCard class]]) {
+            cardsValid = YES;
+        }else{
+            return NO;
+        }
+    }
+    return cardsValid;
+}
+
+
 - (NSString *) contents
 {
     NSArray * rankStrings = [PlayingCard validRanks];

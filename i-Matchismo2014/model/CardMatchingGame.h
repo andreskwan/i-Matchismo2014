@@ -19,15 +19,17 @@
  Score could be negative
  */
 @property (nonatomic, readonly) NSInteger score;
-@property (nonatomic,getter = isThreeCardsGame) BOOL threeCardsGame;
+@property (nonatomic, getter = isThreeCardsGame) BOOL threeCardsGame;
+@property (nonatomic) NSInteger cardGameSize;
+
 /**
  Designated initializer
  */
 -(instancetype) initWithCardCount:(NSUInteger)count
                              deck:(Deck *)deck;
-
 -(void)chooseCardAtIndex:(NSUInteger)index;
 -(Card *)cardAtIndex:(NSUInteger)index;
 -(void)determineMatch:(NSMutableArray *)cardsChoosen
-          cardsInGame:(BOOL)isThreeCardGame;
+             gameSize:(NSInteger)cardGameSize;
+
 @end
