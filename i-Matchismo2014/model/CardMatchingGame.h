@@ -31,5 +31,4 @@
 -(Card *)cardAtIndex:(NSUInteger)index;
 -(void)determineMatch:(NSMutableArray *)cardsChoosen
              gameSize:(NSInteger)cardGameSize;
-
 @end

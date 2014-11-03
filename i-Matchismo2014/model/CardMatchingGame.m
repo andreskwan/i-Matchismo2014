@@ -9,9 +9,9 @@
 #import "CardMatchingGame.h"
 
 static const int  DEFAULT_GAME_SIZE   = 2;
-static const int  MISTATCH_PENALTY = 2;
-static const int  MATCH_BONUS      = 4;
-static const int  COST_TO_CHOOSE   = 2;
+static const int  MISTATCH_PENALTY    = 2;
+static const int  MATCH_BONUS         = 4;
+static const int  COST_TO_CHOOSE      = 2;
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
@@ -100,7 +100,7 @@ static const int  COST_TO_CHOOSE   = 2;
             }
             //[self determineMatch:cardsChoosen
             //         cardsInGame:self.isThreeCardsGame];
-            [self determineMatch:cardsChoosen gameSize:4];
+            [self determineMatch:cardsChoosen gameSize:self.cardGameSize];
         }
     }
 }
@@ -133,6 +133,7 @@ static const int  COST_TO_CHOOSE   = 2;
             };
         }
     }
+
 @end
 
 

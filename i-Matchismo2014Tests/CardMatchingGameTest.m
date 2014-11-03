@@ -194,7 +194,7 @@
     //after run this method
     //the cards in the array must change
     [self.cardMG determineMatch:self.cardsChoosen
-                    gameSize:3];
+                    gameSize:self.cardMG.cardGameSize];
     
     XCTAssertTrue(card1.chosen, @"This should be true");
     XCTAssertTrue(card4.chosen, @"This should be true");

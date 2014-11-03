@@ -12,6 +12,7 @@
 @interface CardGameViewController ()
 @property (strong, nonatomic) CardMatchingGame * game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSelector;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @end
 
@@ -69,7 +70,15 @@
 }
 - (IBAction)newGameButton {
     self.game = nil;
+    [self setGameMode:self.gameModeSelector];
     [self game];
     [self updateUI];
 }
+- (IBAction)setGameMode:(id)sender
+{
+    NSUInteger mode = [sender selectedSegmentIndex];
+    self.game.cardGameSize = (mode == 0)?2:3;
+}
+
+
 @end
