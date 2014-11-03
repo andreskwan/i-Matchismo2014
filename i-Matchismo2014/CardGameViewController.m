@@ -70,15 +70,31 @@
 }
 - (IBAction)newGameButton {
     self.game = nil;
+
     [self setGameMode:self.gameModeSelector];
     [self game];
     [self updateUI];
+    self.gameModeSelector.enabled = YES;
+        [self areCardsEnable:NO];
 }
 - (IBAction)setGameMode:(id)sender
 {
     NSUInteger mode = [sender selectedSegmentIndex];
     self.game.cardGameSize = (mode == 0)?2:3;
+    self.gameModeSelector.enabled = NO;
+    [self areCardsEnable:YES];
 }
 
+- (void)viewDidLoad
+{
+    [self areCardsEnable:NO];
+}
+
+- (void)areCardsEnable:(BOOL)enable
+{
+    for (UIButton * cardButton in self.cardButtons) {
+        cardButton.enabled = enable;
+    }
+}
 
 @end
