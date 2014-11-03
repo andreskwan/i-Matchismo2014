@@ -88,6 +88,7 @@
 - (void)viewDidLoad
 {
     [self areCardsEnable:NO];
+    self.gameModeSelector.enabled = NO;
 }
 
 - (void)areCardsEnable:(BOOL)enable
